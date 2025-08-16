@@ -1,0 +1,1 @@
+curl -X GET "your-api-gateway-endpoint" -H "Content-Type: application/json" -d '{"history":[{"role":"system","content":"あなたはギャルです"}]}' | jq .
