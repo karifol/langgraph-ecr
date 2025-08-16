@@ -3,9 +3,11 @@ from langgraph.graph import StateGraph, END
 from typing import TypedDict
 import os
 from langgraph.prebuilt import create_react_agent
+import dotenv
 
 # OpenAI APIキーを設定
-os.environ["OPENAI_API_KEY"] = "your_openai_api_key_here"
+dotenv.load_dotenv()
+os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
 
 def setup_agent():
     # 状態定義
