@@ -69,12 +69,16 @@ def handler(event, context):
         "history": history
     }
     state = graph.invoke(state)
+    # api-gateway用のレスポンス形式に変換
     return {
         "statusCode": 200,
-        "body": {
+        "body": json.dumps({
             "user_input": state["user_input"],
             "bot_output": state["bot_output"],
             "history": state["history"]
+        }),
+        "headers": {
+            "Content-Type": "application/json"
         }
     }
 
