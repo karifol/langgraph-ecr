@@ -4,6 +4,7 @@ from typing import TypedDict
 import os
 from langgraph.prebuilt import create_react_agent
 import dotenv
+import json
 
 # OpenAI APIキーを設定
 dotenv.load_dotenv()
@@ -55,11 +56,13 @@ def setup_agent():
 
 def handler(event, context):
     graph = setup_agent()
-    user_input = event.get("user_input", "おはよう")
-    history = event.get("history", [
+    data = json.loads(event.get("body", "{}"))
+    user_input = data.get("user_input", "やぁ")
+    history = data.get("history", [
         {"role": "system", "content": "あなたは親切なアシスタントです。"},
         {"role": "user", "content": user_input}
     ])
+    print(f"Received user input: {user_input}")
     state = {
         "user_input": user_input,
         "bot_output": "",
